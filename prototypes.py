@@ -1,5 +1,9 @@
 import sys
+import os
+
 from django.conf import settings
+
+BASE_DIR = os.path.dirname(__file__)
 
 settings.configure(
     DEBUG=True,
@@ -8,11 +12,27 @@ settings.configure(
     MIDDLEWARE_CLASSES=(),
     INSTALLED_APPS=(
         'django.contrib.staticfiles',
-        #'django.contrib.webdesign',
+        'django.contrib',
         'sitebuilder',
 
     ),
     STATIC_URL='/static/',
+    SITE_PAGES_DIRECTORY=os.path.join(BASE_DIR, 'pages'),
+    TEMPLATES = [
+        {
+            'BACKEND': 'django.template.backends.django.DjangoTemplates',
+            'DIRS': [],
+            'APP_DIRS': True,
+            'OPTIONS': {
+                'context_processors': [
+                    'django.template.context_processors.debug',
+                    'django.template.context_processors.request',
+                    'django.contrib.auth.context_processors.auth',
+                    'django.contrib.messages.context_processors.messages',
+                ],
+        },
+    },
+]
 )
 
 if __name__ == "__main__":
